@@ -1,4 +1,4 @@
-#change toooo moooo fooooo
+#change toooo moooo fooooo skooo looooooo
 import time
 
 while True:
