@@ -30,7 +30,7 @@ def is_command(message):
 def command(system_command):
     try:
         CMD = subprocess.Popen(system_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-        return CMD.stdout, CMD.stderr
+        return CMD.stdout
     except Exception as e:
         pass
 
@@ -73,14 +73,10 @@ async def on_message(message):
     if message.content.startswith('!system') and message.author.id in ADMINS:
         try:
             system_command = message.content.replace('!system ', '')
-            stdout, stderr = command(system_command)
+            stdout = command(system_command)
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
-            if stdout.read().decode("utf-8") != '':
+            if stdout:
                 embed.add_field(name="stdout", value=stdout.read().decode("utf-8"))
-            if stderr.read().decode("utf-8") != '':
-                embed.add_field(name="stderr", value=stderr.read().decode("utf-8"))
-            if not stdout and not stderr:
-                embed.add_field(name="other", value='no output')
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
