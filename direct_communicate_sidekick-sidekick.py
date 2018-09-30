@@ -30,7 +30,7 @@ def is_command(message):
 def command(system_command):
     try:
         CMD = subprocess.Popen(system_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-        return CMD.stdout.read(), CMD.stderr.read()
+        return CMD.stdout, CMD.stderr
     except Exception as e:
         pass
 
