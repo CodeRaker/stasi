@@ -76,9 +76,9 @@ async def on_message(message):
             stdout, stderr = command(system_command)
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
             if stdout:
-                embed.add_field(name="stdout", value=str(stdout.read().decode("utf-8").strip('\n')))
+                embed.add_field(name="stdout", value=str(stdout.read().decode("utf-8")))
             if stderr:
-                embed.add_field(name="stderr", value=str(stderr.read().decode("utf-8").strip('\n')))
+                embed.add_field(name="stderr", value=str(stderr.read().decode("utf-8")))
             if not stdout and not stderr:
                 embed.add_field(name="other", value='no output')
             await client.send_message(message.channel, embed=embed)
