@@ -1,0 +1,7 @@
+FROM python:3
+
+RUN pip install discord
+COPY direct_communicate-sidekick.py /sidekick.py
+COPY direct_communicate-secrets /secrets
+
+CMD ["python", "sidekick.py", "&"]
