@@ -2,5 +2,6 @@ FROM python:3
 
 RUN pip install discord
 COPY direct_communicate-madbot.py /madbot.py
+COPY direct_communicate-secrets /secrets
 
 CMD ["python", "madbot.py", "&"]
