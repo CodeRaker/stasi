@@ -1,4 +1,4 @@
-import discord, os, subprocess
+import discord, os, subprocess, json, requests
 
 client = discord.Client()
 ADMINS = []
@@ -11,6 +11,11 @@ with open('/projects/stasi/containers/direct_communicate-secrets') as f:
             DISCORD_TOKEN = l.split(':')[1]
         if 'admin' in l:
             ADMINS.append(l.split(':')[1])
+
+#Grabs data from specified url
+def get_url(url):
+    r = requests.get(url)
+    return r
 
 #Grabs the botserver public IP
 def get_public_ip():
