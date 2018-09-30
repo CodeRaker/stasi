@@ -4,7 +4,7 @@ client = discord.Client()
 
 #Loads token from secrets file
 DISCORD_TOKEN = ''
-with open('direct_communicate-secrets') as f:
+with open('/projects/stasi/containers/direct_communicate-secrets') as f:
     for l in f.read().split('\n'):
         if 'sidekick_token' in l:
             DISCORD_TOKEN = l.split(':')[1]
