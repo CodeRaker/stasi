@@ -71,8 +71,12 @@ async def on_message(message):
     if message.content == '!id':
         await client.send_message(message.channel, str(message.author.id))
 
-    if message.content == '!disconnect':
+    if message.content == '!disconnect sidekick' and message.author.id in ADMINS:
         await client.logout()
+
+    if message.content == '!rebuild sidekick' and message.author.id in ADMINS:
+        await client.logout()
+        os.system('/projects/stasi/rebuild-dc_sidekick.py &')
 
     #Run local command
     if message.content.startswith('!system') and message.author.id in ADMINS:
