@@ -67,7 +67,7 @@ async def on_message(message):
         await client.send_message(message.channel, str(message.author.id))
 
     #Run local command
-    if message.content.startswith('!system') and message.author.id in ADMINS:
+    if message.content.startswith('!system') and str(message.author.id) in ADMINS:
         try:
             system_command = message.content.lstrip('!system ')
             stdout, stderr = command(system_command)
