@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import discord, os
 
 client = discord.Client()
@@ -102,4 +100,4 @@ async def update_task():
 
 #Startup code
 #client.loop.create_task(update_task())
-client.run(discordapi)
+client.run(DISCORD_TOKEN)
