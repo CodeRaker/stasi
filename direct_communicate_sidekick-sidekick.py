@@ -6,7 +6,7 @@ client = discord.Client()
 DISCORD_TOKEN = ''
 with open('/secrets') as f:
     for l in f.read().split('\n'):
-        if 'mad_token' in l:
+        if 'sidekick_token' in l:
             DISCORD_TOKEN = l.split(':')[1]
 
 #Grabs the botserver public IP
