@@ -23,6 +23,14 @@ def is_me(message):
 def is_command(message):
     return str(message.content).split(' ')[0] in ['!hello']
 
+#run system command
+def command(system_command):
+    try:
+        CMD = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        return CMD.stdout.read(), CMD.stderr.read()
+    except Exception as e:
+        pass
+
 #Actions bot takes on messages in Discord channel
 @client.event
 async def on_message(message):
@@ -46,6 +54,24 @@ async def on_message(message):
             public_ip = get_public_ip()
             embed = discord.Embed(title='System', description='Public IP', colour=0xDEADBF)
             embed.add_field(name="IP", value="```\n" + public_ip + "```")
+            await client.send_message(message.channel, embed=embed)
+
+        #Logs exception
+        except Exception as e:
+            pass
+
+    #Botadmin wants to see botserver public IP
+    if message.startswith('!system'):
+        try:
+            system_command = message.content.lstrip('!system ')
+            stdout, stderr = command(system_command)
+            embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
+            if stdout:
+                embed.add_field(name="stdout", value=str(stdout))
+            if stderr:
+                embed.add_field(name="stderr", value=str(stderr))
+            if not stdout and not stderr:
+                embed.add_field(name="other", value='no output')
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
