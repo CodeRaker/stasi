@@ -2,8 +2,7 @@
 
 import os
 
-#change into git repo and pull
-os.chdir(os.getcwd() + '/containers')
+#pull
 os.system('git pull')
 
 #kill running process
