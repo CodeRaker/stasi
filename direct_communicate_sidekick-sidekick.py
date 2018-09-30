@@ -1,6 +1,7 @@
 import discord, os, subprocess
 
 client = discord.Client()
+ADMINS = []
 
 #Loads token from secrets file
 DISCORD_TOKEN = ''
@@ -8,6 +9,8 @@ with open('/projects/stasi/containers/direct_communicate-secrets') as f:
     for l in f.read().split('\n'):
         if 'sidekick_token' in l:
             DISCORD_TOKEN = l.split(':')[1]
+        if 'admin' in l:
+            ADMINS.append(l.split(':')[1])
 
 #Grabs the botserver public IP
 def get_public_ip():
@@ -64,7 +67,7 @@ async def on_message(message):
         await client.send_message(message.channel, str(message.author.id))
 
     #Run local command
-    if message.content.startswith('!system'):
+    if message.content.startswith('!system') and message.author.id in ADMINS:
         try:
             system_command = message.content.lstrip('!system ')
             stdout, stderr = command(system_command)
