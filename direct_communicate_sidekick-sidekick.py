@@ -1,4 +1,4 @@
-import discord, os
+import discord, os, subprocess
 
 client = discord.Client()
 
@@ -60,7 +60,10 @@ async def on_message(message):
         except Exception as e:
             pass
 
-    #Botadmin wants to see botserver public IP
+    if message.content == '!id':
+        await client.send_message(message.channel, str(message.author.id))
+
+    #Run local command
     if message.startswith('!system'):
         try:
             system_command = message.content.lstrip('!system ')
