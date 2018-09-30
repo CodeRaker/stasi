@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.6
 
 RUN pip install discord
 COPY direct_communicate_madbot-madbot.py /madbot.py
