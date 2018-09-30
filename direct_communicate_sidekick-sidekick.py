@@ -35,11 +35,10 @@ async def on_message(message):
     #User wants to see their individual player stats
     if message.content == '!embed':
         embed = discord.Embed(title='Embed', description='Testing Embed', colour=0xDEADBF)
-            #embed.set_thumbnail(url='')
-            embed.add_field(name="Field1", value='Field1_Text')
-            embed.add_field(name="Field2", value='Field2_Text')
-            embed.add_field(name="Field3", value='Field3_Text')
-            await client.send_message(message.channel, embed=embed)
+        embed.add_field(name="Field1", value='Field1_Text')
+        embed.add_field(name="Field2", value='Field2_Text')
+        embed.add_field(name="Field3", value='Field3_Text')
+        await client.send_message(message.channel, embed=embed)
 
     #Botadmin wants to see botserver public IP
     if message.content == '!getip':
@@ -100,4 +99,4 @@ async def update_task():
 
 #Startup code
 #client.loop.create_task(update_task())
-client.run(discordapi)
+client.run(DISCORD_TOKEN)
