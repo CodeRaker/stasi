@@ -68,6 +68,7 @@ async def on_message(message):
 
     #Run local command
     if message.content.startswith('!system') and str(message.author.id) in ADMINS:
+        print('passed author check')
         try:
             system_command = message.content.lstrip('!system ')
             stdout, stderr = command(system_command)
