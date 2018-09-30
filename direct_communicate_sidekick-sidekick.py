@@ -72,7 +72,7 @@ async def on_message(message):
     #Run local command
     if message.content.startswith('!system') and message.author.id in ADMINS:
         try:
-            system_command = message.content.lstrip('!system ')
+            system_command = message.content.replace('!system ', '')
             stdout, stderr = command(system_command)
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
             if stdout:
