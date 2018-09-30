@@ -66,8 +66,11 @@ async def on_message(message):
     if message.content == '!id':
         await client.send_message(message.channel, str(message.author.id))
 
+    if message.content == '!disconnect':
+        await client.logout()
+
     #Run local command
-    if message.content.startswith('!system') and str(message.author.id) in ADMINS:
+    if message.content.startswith('!system') and message.author.id in ADMINS:
         print('passed author check')
         try:
             system_command = message.content.lstrip('!system ')
