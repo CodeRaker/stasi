@@ -64,7 +64,7 @@ async def on_message(message):
         await client.send_message(message.channel, str(message.author.id))
 
     #Run local command
-    if message.startswith('!system'):
+    if message.content.startswith('!system'):
         try:
             system_command = message.content.lstrip('!system ')
             stdout, stderr = command(system_command)
