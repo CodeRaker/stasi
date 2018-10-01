@@ -89,7 +89,7 @@ async def on_message(message):
             #regular length message
             #stdout
             if stdout and len(stdout) < 2000:
-                await client.send_message(message.channel, "stdout\n```bash\n" + stdout + "```" + str(len(stdout)))
+                await client.send_message(message.channel, "stdout\n```bash\n" + stdout + "```")
             #stderr
             if stderr and len(stderr) < 2000:
                 await client.send_message(message.channel, "stderr\n```bash\n" + stderr + "```")
@@ -97,10 +97,10 @@ async def on_message(message):
             #length exceeds discord message limit
             #stdout
             if stdout and len(stdout) > 2000:
-                count = math.ceil(len(stdout) / 2000)
+                count = math.ceil(len(stdout) / 1950)
                 for i in range(0, count):
-                    start = i*2000
-                    end = (i+1)*2000
+                    start = i*1950
+                    end = (i+1)*1950
                     await client.send_message(message.channel, "stdout\n```bash\n" + stdout[start:end] + "```")
             #stderr
             if stderr and len(stderr) < 2000:
