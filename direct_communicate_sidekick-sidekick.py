@@ -1,4 +1,4 @@
-import discord, os, subprocess, json, requests
+import discord, os, subprocess, json, requests, math
 
 client = discord.Client()
 ADMINS = []
@@ -85,10 +85,30 @@ async def on_message(message):
             c = command(system_command)
             stdout = c[0].read().decode("utf-8")
             stderr = c[1].read().decode("utf-8")
-            if stdout:
+
+            #regular length message
+            #stdout
+            if stdout and len(stdout) < 2000:
                 await client.send_message(message.channel, "stdout\n```bash\n" + stdout + "```")
-            if stderr:
+            #stderr
+            if stderr and len(stderr) < 2000:
                 await client.send_message(message.channel, "stderr\n```bash\n" + stderr + "```")
+
+            #length exceeds discord message limit
+            #stdout
+            if stdout and len(stdout) > 2000:
+                count = math.ceil(len(stdout) / 2000)
+                counter = 0
+                for i in range(0, count):
+                    counter+=1
+                    await client.send_message(message.channel, "stdout\n```bash\n" + stdout[i*2000:counter*2000] + "```")
+            #stderr
+            if stderr and len(stderr) < 2000:
+                count = math.ceil(len(stderr) / 2000)
+                counter = 0
+                for i in range(0, count):
+                    counter+=1
+                    await client.send_message(message.channel, "stderr\n```bash\n" + stderr[i*2000:counter*2000] + "```")
 
         #Logs exception
         except Exception as e:
