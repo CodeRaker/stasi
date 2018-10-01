@@ -1,4 +1,4 @@
-import discord, os, subprocess, json, requests, math
+import discord, os, subprocess, json, requests, math, time
 
 client = discord.Client()
 ADMINS = []
@@ -102,6 +102,7 @@ async def on_message(message):
                     start = i*2000
                     end = (i+1)*2000
                     await client.send_message(message.channel, "stdout\n```bash\n" + stdout[start:end] + "```")
+                    time.sleep(4)
             #stderr
             if stderr and len(stderr) < 2000:
                 count = math.ceil(len(stderr) / 2000)
