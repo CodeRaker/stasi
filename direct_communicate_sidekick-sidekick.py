@@ -82,12 +82,14 @@ async def on_message(message):
     if message.content.startswith('!system') and message.author.id in ADMINS:
         try:
             system_command = message.content.replace('!system ', '')
-            stdout, stderr = command(system_command)
+            c = command(system_command)
+            stdout = c[0].read().decode("utf-8")
+            stderr = c[1].read().decode("utf-8")
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
             if stdout:
-                embed.add_field(name="stdout", value=stdout.read().decode("utf-8"))
+                embed.add_field(name="stdout", value=stdout)
             if stderr:
-                embed.add_field(name="stderr", value='error')
+                embed.add_field(name="stderr", value=stderr)
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
