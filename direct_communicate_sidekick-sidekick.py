@@ -35,7 +35,7 @@ def is_command(message):
 def command(system_command):
     try:
         CMD = subprocess.Popen(system_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-        return CMD.stdout
+        return CMD.stdout, CMD.stderr
     except Exception as e:
         pass
 
@@ -82,10 +82,12 @@ async def on_message(message):
     if message.content.startswith('!system') and message.author.id in ADMINS:
         try:
             system_command = message.content.replace('!system ', '')
-            stdout = command(system_command)
+            stdout, stderr = command(system_command)
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
             if stdout:
                 embed.add_field(name="stdout", value=stdout.read().decode("utf-8"))
+            elif stderr:
+                embed.add_field(name="stderr", value=stderr.read().decode("utf-8"))
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
@@ -97,30 +99,11 @@ async def on_message(message):
 
     #Print help/commands menu
     if message.content in ['!commands','!help']:
-        embed = discord.Embed(title='Command List', description='Use the commands to show user stats, control the bot or issue RCON commands. Some commands can be further explained with the help feature. I.e. "help !addme"', colour=0xDEADBF)
-        embed.add_field(name="User Commands", value="""
+        embed = discord.Embed(title='Control', description='Commands for controlling STASI', colour=0xDEADBF)
+        embed.add_field(name="Command List", value="""
 ```bash
-!commands             # Shows this menu
-!addme                # Subscribe to stats.
-!removeme             # Unsubscribe from stats
-!stats (-all) (-user) # Show User stats
-!mystats (-all)       # Show Your stats
-!compare name1,name2  # Compare player's stats
-!serverstatus         # Show DXC Server status
-!serverload           # Show DXC Server load
-!lastupdate           # Show last update time
-```""")
-        embed.add_field(name="Bot Admin Commands", value="""
-```bash
-!reload               # Update source code
-!disconnect           # Offline bot
-!forceupdate          # Force stats update
-!purge                # Purge bot messages
-!getip                # Show bot public IP
-```""")
-        embed.add_field(name="RCON Admin Commands", value="""
-```bash
-!rcon                 # Run RCON command
+!commands               # Shows this menu
+!system <bash command>  # Run host command
 ```""")
         await client.send_message(message.channel, embed=embed)
 
