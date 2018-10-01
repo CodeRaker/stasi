@@ -87,7 +87,7 @@ async def on_message(message):
             if stdout:
                 embed.add_field(name="stdout", value=stdout.read().decode("utf-8"))
             if stderr:
-                embed.add_field(name="stderr", value=stderr.read())
+                embed.add_field(name="stderr", value='error')
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
