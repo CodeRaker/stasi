@@ -87,9 +87,9 @@ async def on_message(message):
             stderr = c[1].read().decode("utf-8")
             embed = discord.Embed(title='System Command', description='Host', colour=0xDEADBF)
             if stdout:
-                embed.add_field(name="stdout", value=stdout)
+                embed.add_field(name="stdout", value="```bash\n" + stdout + "```")
             if stderr:
-                embed.add_field(name="stderr", value=stderr)
+                embed.add_field(name="stderr", value="```bash\n" + stderr + "```")
             await client.send_message(message.channel, embed=embed)
 
         #Logs exception
