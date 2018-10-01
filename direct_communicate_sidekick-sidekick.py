@@ -104,11 +104,11 @@ async def on_message(message):
                     await client.send_message(message.channel, "stdout\n```bash\n" + stdout[start:end] + "```")
             #stderr
             if stderr and len(stderr) < 2000:
-                count = math.ceil(len(stderr) / 2000)
-                counter = 0
+                count = math.ceil(len(stderr) / 1950)
                 for i in range(0, count):
-                    counter+=1
-                    await client.send_message(message.channel, "stderr\n```bash\n" + stderr[i*2000:counter*2000] + "```")
+                    start = i*1950
+                    end = (i+1)*1950
+                    await client.send_message(message.channel, "stderr\n```bash\n" + stderr[start:end] + "```")
 
         #Logs exception
         except Exception as e:
