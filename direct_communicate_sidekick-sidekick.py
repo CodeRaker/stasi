@@ -57,16 +57,16 @@ async def on_message(message):
         await client.send_message(message.channel, embed=embed)
 
     #Botadmin wants to see botserver public IP
-    if message.content == '!getip':
-        try:
-            public_ip = get_public_ip()
-            embed = discord.Embed(title='System', description='Public IP', colour=0xDEADBF)
-            embed.add_field(name="IP", value="```\n" + public_ip + "```")
-            await client.send_message(message.channel, embed=embed)
+    #if message.content == '!getip':
+    #    try:
+    #        public_ip = get_public_ip()
+    #        embed = discord.Embed(title='System', description='Public IP', colour=0xDEADBF)
+    #        embed.add_field(name="IP", value="```\n" + public_ip + "```")
+    #        await client.send_message(message.channel, embed=embed)
 
         #Logs exception
-        except Exception as e:
-            pass
+    #    except Exception as e:
+    #        pass
 
     if message.content == '!id':
         await client.send_message(message.channel, str(message.author.id))
@@ -79,9 +79,9 @@ async def on_message(message):
         os.system('/projects/stasi/containers/rebuild-dc_sidekick.py &')
 
     #Run local command
-    if message.content.startswith('!system') and message.author.id in ADMINS:
+    if message.content.startswith('!sidekick') and message.author.id in ADMINS:
         try:
-            system_command = message.content.replace('!system ', '')
+            system_command = message.content.replace('!sidekick ', '')
             c = command(system_command)
             stdout = c[0].read().decode("utf-8")
             stderr = c[1].read().decode("utf-8")
@@ -118,7 +118,7 @@ async def on_message(message):
 #        client.change_status(discord.Game(name='Tetris'))
 
     #Print help/commands menu
-    if message.content in ['!commands','!help']:
+    if message.content in ['!commands sidekick','!help']:
         embed = discord.Embed(title='Control', description='Commands for controlling STASI', colour=0xDEADBF)
         embed.add_field(name="Command List", value="""
 ```bash
