@@ -5,7 +5,7 @@ ADMINS = []
 
 #Loads token from secrets file
 DISCORD_TOKEN = ''
-with open('/secrets') as f:
+with open('/projects/stasi/containers/direct_communicate-secrets') as f:
     for l in f.read().split('\n'):
         if 'mad_token' in l:
             DISCORD_TOKEN = l.split(':')[1]
