@@ -128,17 +128,17 @@ async def on_message(message):
         await client.send_message(message.channel, embed=embed)
 
 #Creates a background stats update task
-async def update_task():
-    await client.wait_until_ready()
-    while not client.is_closed:
-        try:
-            #Update user and statistics data and wait 1 hour
-            player.initialize()
-            await asyncio.sleep(3600)
-
-        #Logs exception
-        except Exception as e:
-            os.system('echo "' + str(datetime.datetime.now()) + " Update_task: " + str(e) + '" >> ' + logpath)
+#async def update_task():
+#    await client.wait_until_ready()
+#    while not client.is_closed:
+#        try:
+#            #Update user and statistics data and wait 1 hour
+#            player.initialize()
+#            await asyncio.sleep(3600)
+#
+#        #Logs exception
+#        except Exception as e:
+#            os.system('echo "' + str(datetime.datetime.now()) + " Update_task: " + str(e) + '" >> ' + logpath)
 
 #Startup code
 #client.loop.create_task(update_task())
